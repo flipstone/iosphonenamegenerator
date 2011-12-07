@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <title>iOS Phone Name Generator</title>
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        font: 12px "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif;
+      }
+      h1 {
+        margin: 0;
+        padding: 10px;
+        color: white;
+        background: #222;
+        text-shadow: black 0 0 1px;
+      }
+      .phone-name {
+        font-size: 200px; padding: 10px;
+        text-shadow: #222 2px 2px 4px;
+      }
+
+      a { color: #555; }
+
+      .footer img {
+        vertical-align: center;
+      }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"
+            type="text/javascript"></script>
+    <script type="text/javascript">
+      function setCookie(name,value,days) {
+          if (days) {
+              var date = new Date();
+              date.setTime(date.getTime()+(days*24*60*60*1000));
+              var expires = "; expires="+date.toGMTString();
+          }
+          else var expires = "";
+          document.cookie = name+"="+value+expires+"; path=/";
+      }
+
+      function getCookie(name) {
+          var nameEQ = name + "=";
+          var ca = document.cookie.split(';');
+          for(var i=0;i < ca.length;i++) {
+              var c = ca[i];
+              while (c.charAt(0)==' ') c = c.substring(1,c.length);
+              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+          }
+          return null;
+      }
+
+      function deleteCookie(name) {
+          setCookie(name,"",-1);
+      }
+
+      var nextSuffix = {
+        "": "3G",
+        "3G": "3GS",
+        "3GS": "4",
+        "4": "4S",
+        "4S": "5",
+        "5": "5G",
+        "5G": "5S",
+        "5S": "5GS",
+        "5GS": "7",
+        "7": ""
+      };
+
+      function suffixToCookie(suffix) {
+        if (suffix == "") { return "empty"; }
+        return suffix;
+      }
+
+      function cookieToSuffix(cookie) {
+        if (cookie == "empty") { return ""; }
+        return cookie;
+      }
+
+      function suffixToShow() {
+        var last = cookieToSuffix(getCookie("last-phone-suffix"));
+        var suffix;
+
+        if (last == null) {
+          suffix = "";
+        } else {
+          suffix = nextSuffix[last];
+        }
+
+        setCookie("last-phone-suffix", suffixToCookie(suffix));
+        return suffix;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>iOS Phone Name Generator</h1>
+    <div class="phone-name">
+      iPhone
+      <script type="text/javascript">document.write(suffixToShow());</script>
+    </div>
+    <div class="footer">
+      <p>
+        Inspired by our sister site:
+        <a href="http://androidphonenamegenerator.com">Android Phone Name Generator</a>
+        &nbsp;
+        |
+        &nbsp;
+        Powered by <a href="http://flipstone.com">Flipstone</a>
+        &nbsp;
+        |
+        &nbsp;
+        Also by Flipstone: <a href="http://yacht-or-not.com/">Yacht Or Not</a>
+      </p>
+      <p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="FlipstoneTech">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+      </p>
+    </div>
+  </body>
+</html>
